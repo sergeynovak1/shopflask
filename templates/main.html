@@ -1,0 +1,67 @@
+{% load notes %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Объявления</title>
+    {% load static %}
+    <link rel="stylesheet" href="{% static 'css/bootstrap.min.css' %}" type="text/css">
+</head>
+<body>
+    <div class="p-3 border bg-light">
+        {% if user.is_authenticated %}
+            <br>
+            <b>Вы вошли как {{ user.email }}</b>
+            <a href="{% url 'logout' %}">Выйти</a>
+        {% else %}
+            <a href="{% url 'registration' %}">Регистрация</a>
+            <a href="{% url 'login' %}">Вход</a>
+        {% endif %}
+        <hr>
+        <h1>ПРОДАЮ!</h1>
+        <hr>
+        <h2>Список объявлений</h2>
+        <p>
+            Количество объявлений: {{ count }}.
+        </p>
+
+        <form action="https://google.com/search" method="get">
+            <input type="text" name="q" placeholder="Поиск...">
+            <button>Найти в Google</button>
+            (<a href="https://google.com" target="_blank">Google</a>)
+        </form>
+
+
+        <br>
+
+        <form action="" method="get">
+            <input type="text" name="search" placeholder="Поиск..."
+                   value="{{ search|default_if_none:'' }}">
+
+            <button>Найти</button>
+        </form>
+
+        <br>
+        {% if user.is_authenticated %}
+            <br>
+                <a href="{% url 'notes_add' %}" class="btn btn-primary btn-lg">Добавить объявление</a>
+            <br>
+        {% endif %}
+        <br>
+        <div>
+            <ul>
+                {% for note in object_list %}
+                    <b>
+                        <a href="{% url "note" note.title note.id %}" class="btn btn-success btn-lg">
+                            {{ note.title }}<br>
+                            {{ note.price }}Руб<br>
+                            {{ note.city }}<br>
+                        </a>
+                    </b>
+                {% endfor %}
+            </ul>
+        </div>
+    </div>
+
+</body>
+</html>

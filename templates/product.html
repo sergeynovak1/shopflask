@@ -1,0 +1,13 @@
+{% extends "base.html" %}
+
+{% block body %}
+    <a href='{{ url_for("products")}}'>Вернуться на главную страницу</a>
+    <h1>{{ title }}</h1>
+    <div>
+        <figure style="width:263px;">
+            <p>{{ product.name|upper }}</p>
+            <p>{{ product.price|float }}</p>
+            <p>{{ product.description|upper }}</p>
+        </figure>
+    </div>
+{% endblock %}

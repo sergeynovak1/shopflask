@@ -1,0 +1,7 @@
+{# делаем наследование от базового файла #}
+{% extends "base.html" %}
+
+{# переопределяем блок body из общего шаблона#}
+{% block body %}
+    <h1 style="color: red">{{ error }}</h1>
+{% endblock %}

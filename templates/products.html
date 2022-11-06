@@ -1,0 +1,22 @@
+{% extends "base.html" %}
+
+{% block body %}
+    <h1>{{ title|upper }}</h1>
+    <form method="post">
+        <tr>
+            <td><input type="text" placeholder="category" name="category"></td>
+        </tr>
+        <tr>
+            <button type="submit">Отсортировать</button>
+        </tr>
+    </form>
+    {% for product in products %}
+        <div onclick="location.href = '{{ url_for("get_product", product_id=product.id) }}'">
+            <figure style="width:263px;">
+                <p>{{ product.name|upper }}</p>
+                <p>{{ product.price|float }}</p>
+                <p>{{ product.description|upper }}</p>
+            </figure>
+        </div>
+    {% endfor %}
+{% endblock %}

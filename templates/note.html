@@ -1,0 +1,42 @@
+<!doctype html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport"
+          content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Заметка {{ object.title }}</title>
+    {% load static %}
+    <link rel="stylesheet" href="{% static 'css/bootstrap.min.css' %}" type="text/css">
+</head>
+<body>
+    <div class="p-3 border bg-light">
+        <a href="{% url 'notes_list' %}">Назад</a>
+        <br>
+
+        <h1>{{ object.title }}</h1>
+
+        <ul>
+            <p><u>Описание:</u><br>{{ object.text }}</p>
+            <p><u>Цена:</u><br>{{ object.price }} Рублей</p>
+            <p><u>Контакты для связи:</u><br>
+                {{ object.user }}<br>
+                {{ object.phoneNumber }}</p>
+
+            <p>
+                <small>
+                    Создана {{ object.created_at|date:'d.m.Y H:i' }}.
+                    Обновлена {{ object.updated_at|date:'d.m.Y H:i' }}.
+                </small>
+            </p>
+        </ul>
+
+        {% if object.user_id == user.id %}
+            <a href="{% url 'note_edit' object.title object.id %}" class="btn btn-primary btn-lg">Редактировать заметку</a>
+            <a href="{% url 'note_delete' object.title object.id %}" class="btn btn-primary btn-lg">Удалить заметку</a>
+        {% endif %}
+        <br>
+    </div>
+
+</body>
+</html>
