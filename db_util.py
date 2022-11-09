@@ -34,6 +34,12 @@ class Database:
 
         return data
 
+    def execute_list(self, query):
+        self.cur.execute(query)
+        data = self.prepare_data(self.cur.fetchall())
+
+        return data
+
     def prepare_data(self, data):
         films = []
         if len(data):
@@ -42,3 +48,25 @@ class Database:
                 films += [{c_name: row[key] for key, c_name in enumerate(column_names)}]
 
         return films
+
+    def getUser(self, user_id):
+        try:
+            self.cur.execute(f"select * from users where id = {user_id} limit 1")
+            res = self.cur.fetchone()
+            if res:
+                return res
+            return False
+        except:
+            return False
+
+    def getUserByEmail(self, email):
+        try:
+            self.cur.execute(f"select * from users where email = '{email}' limit 1")
+            res = self.cur.fetchone()
+            if res:
+                return res
+            return False
+        except:
+            return False
+
+

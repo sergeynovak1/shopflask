@@ -4,17 +4,10 @@
 <head>
     <meta charset="UTF-8">
     <title>{{ title }}</title>
-    <style>
-        div {
-            background-color: aquamarine;
-            border: 1px solid #000;
-            margin: 10px;
-            width: 200px;
-            padding: 10px;
-        }
-    </style>
+    <link rel="stylesheet" href="css/cart.css">
 </head>
 <body>
+    <a href='{{ url_for("products")}}'>Вернуться на главную страницу</a>
 
     {% block body %}{% endblock %}
     {% block script %}{% endblock %}

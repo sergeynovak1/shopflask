@@ -1,0 +1,49 @@
+{% extends "base.html" %}
+
+{% block body %}
+	<div id="title">
+		<!---{% if not loggedIn %}
+			<div id="signInButton">
+				<a class="link" href="/loginForm">Sign In</a>
+			</div>
+		{% else %}
+		<div class="dropdown">
+			<button class="dropbtn">Hello, <br>{{firstName}}</button>
+			<div class="dropdown-content">
+				<a href="/account/orders">Your orders</a>
+				<a href="/account/profile">Your profile</a>
+				<hr>
+				<a href="/logout">Sign Out</a>
+			</div>
+		</div>
+		{% endif %}
+		<div id="kart">
+			<a class="link" href="/cart">
+			CART {{noOfItems}}
+			</a>
+		</div>--->
+	</div>
+	<div id="cartItems">
+		<h2>Shopping Cart</h2>
+		<div id="tableItems">
+			{% for row in products %}
+			<p>id {{row['id']}}</p>
+			<div>
+				<div id="itemName">
+					<span id="itemNameTag">{{row['name']}}</span><br>
+					In stock<br>
+					<a href="/removeFromCart?productId={{row['id']}}">Remove</a>
+				</div>
+				<div id="itemPrice">
+					${{row['price']}}
+				</div>
+			</div>
+			{% endfor %}
+			<hr id="seperator">
+			<div id="total">
+				<span id="subtotal">Subtotal</span> : ${{totalPrice}}
+			</div>
+		</div>
+	</div>
+	<a href="/checkout">Proceed to checkout</a>
+{% endblock %}

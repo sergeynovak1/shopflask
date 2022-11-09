@@ -1,36 +1,16 @@
-<!doctype html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport"
-          content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
-    <meta http-equiv="X-UA-Compatible" content="ie=edge">
-    <title>Регистрация</title>
-</head>
-<body>
-<a href="{% url 'main' %}">Главная страница</a>
+{% extends "base.html" %}
 
-<h1>Регистрация</h1>
-
-
-{% if message %}
-    <b>{{ message }}</b>
-{% endif %}
-
-{% if form.errors %}
-    <b>Пожалуйста, исправьте ошибки:</b>
-    {{ form.errors }}
-{% endif %}
-
-{% if is_success %}
-    <p><b>Вы успешно зарегистрированы!</b></p>
-{% else %}
-    <form action="" method="post">
-        {% csrf_token %}
-        {{ form.as_p }}
-        <button>Зарегистрироваться</button>
+{% block body %}
+    <p><a href='{{ url_for("products")}}'>Вернуться на главную страницу</a></p>
+    {{ super() }}
+    {% for cat, msg in get_flashed_messages(True) %}
+    <div class="flash {{cat}}">{{msg}}
+    {% endfor %}
+    <h1>{{ title|upper }}</h1>
+    <form method="post">
+        <p><label>Email: </label> <input type="text" name="email" value="" required /></p>
+        <p><label>Password: </label> <input type="password" name="psw" value="" required /></p>
+        <p><label>Repeat Password: </label> <input type="password" name="psw2" value="" required /></p>
+        <p><input type="submit" value="Регистрация" /></p>
     </form>
-{% endif %}
-</body>
-</html>
-
+{% endblock %}
