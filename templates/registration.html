@@ -8,9 +8,10 @@
     {% endfor %}
     <h1>{{ title|upper }}</h1>
     <form method="post">
-        <p><label>Email: </label> <input type="text" name="email" value="" required /></p>
-        <p><label>Password: </label> <input type="password" name="psw" value="" required /></p>
-        <p><label>Repeat Password: </label> <input type="password" name="psw2" value="" required /></p>
+        <p><label>Email: </label> <input type="text" name="email" value={{ prof.email }} /></p>
+        <p><label>Password: </label> <input type="password" name="psw" value="" /></p>
+        <p><label>Repeat Password: </label> <input type="password" name="psw2" value="" /></p>
         <p><input type="submit" value="Регистрация" /></p>
     </form>
+    </div>
 {% endblock %}

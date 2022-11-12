@@ -5,17 +5,27 @@
     <h1>{{ title }}</h1>
     <div>
         <figure style="width:263px;">
+            {% if product.image != None %}
+                <p><a><img src="/static/images/{{ product.image }}"
+                                                 width="100%" height="auto"></a></p>
+            {% endif %}
+            <p>{{ product.image|upper }}</p>
             <p>{{ product.name|upper }}</p>
             <p>Price: {{ product.price|float }}</p>
             <p>Description: {{ product.description|upper }}</p>
             <p>Category: {{ product.category|upper }}</p>
         </figure>
-        <a href="/addToCart?productId={{product.id}}">Купить</a>
-        <a href="/removeProduct?productId={{product.id}}">Удалить</a>
-        {% if not in_fav %}
-            <a href="/addToFav?productId={{product.id}}">Добавить в избранное</a>
-        {% else %}
-            <p>Товар уже в избранном</p>
+        {% if role != None %}
+            <a href="/addToCart?productId={{product.id}}">Купить</a>
+            {% if role == 'admin' %}
+                <a href="/removeProduct?productId={{product.id}}">Удалить</a>
+                <a href="/redirectProduct?productId={{product.id}}">Редактировать</a>
+            {% endif %}
+            {% if not in_fav %}
+                <a href="/addToFav?productId={{product.id}}">Добавить в избранное</a>
+            {% else %}
+                <p>Товар уже в избранном</p>
+            {% endif %}
         {% endif %}
     </div>
 {% endblock %}

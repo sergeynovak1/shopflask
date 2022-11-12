@@ -8,8 +8,31 @@
     <h1>{{ title|upper }}</h1>
     <div>
         <figure style="width:263px;">
-            <p>{{ current_user.is_authenticated }}</p>
-            <p>{{ 'email' not in session }}</p>
+            <h3>Email: {{ prof.email }}</h3>
+            <a href="{{ url_for('redirectProfile') }}">Редактировать профиль</a>
+            <p><a href="{{ url_for('removeProfile') }}">Удалить профиль</a></p>
+            <br>
+            <br>
+            <br>
+            <br>
+            <h2>Заказы:</h2>
+            <hr>
+            {% for order in orders %}
+                {% for product in order %}
+                {% if product != [] %}
+                    <div style="float:left;" onclick="location.href = '{{ url_for("get_product", product_id=product.id) }}'">
+                        <figure style="width:263px;">
+                            <p>{{ product.name|upper }}</p>
+                            <p>{{ product.price|float }}</p>
+                            <p>{{ product.description|upper }}</p>
+                        </figure>
+                    </div>
+                {% else %}
+                    <p>Товар уже не актуален</p>
+                {% endif %}
+                {% endfor %}
+                <hr>
+            {% endfor %}
         </figure>
     </div>
 

@@ -1,2 +1,2 @@
-p_list = ['0']
-print(p_list[0] == p_list)
+orders_list = ['ppp']
+print(tuple(orders_list))

@@ -1,7 +1,6 @@
 {% extends "base.html" %}
 
 {% block body %}
-    {{url}}
     {% if current_user.is_authenticated %}
         <a href="{{ url_for('logout') }}">Выйти</a>
         <a href="{{ url_for('profile') }}">Профиль</a>
@@ -15,24 +14,45 @@
     <a href="{{ url_for('fav') }}">Избранное</a>
 
     <h1>{{ title|upper }}</h1>
+
     <form method="post">
+        <select name="category" id="cars">
+            <option disabled>Категория</option>
+            {% for category in categories %}
+                {% if category == p_category %}
+                    <option value={{category}} selected="selected">{{category}}</option>
+                {% else%}
+                    <option value={{category}}>{{category}}</option>
+                {% endif %}
+            {% endfor %}
+        </select>
         <tr>
-            <td><input type="text" placeholder="category" name="category"></td>
+            <td><input type="text" placeholder="search" name="name" value={{name}}></td>
         </tr>
         <tr>
-            <button type="submit">Отсортировать</button>
+            <button type="submit">Поиск</button>
         </tr>
     </form>
+    <form method="post">
+        <tr>
+            <button type="submit">Сбросить фильтры</button>
+        </tr>
+    </form>
+
+
     {% for product in products %}
         <div style="float:left;" onclick="location.href = '{{ url_for("get_product", product_id=product.id) }}'">
-            <figure style="width:263px;">
+            <figure style="width:290px; background-color: #11557C;">
+                {% if product.image != None %}
+                    <p><a><img src="/static/images/{{ product.image }}" width="100%" height="auto"></a></p>
+                {% endif %}
                 <p>{{ product.name|upper }}</p>
                 <p>{{ product.price|float }}</p>
                 <p>{{ product.description|upper }}</p>
             </figure>
         </div>
     {% endfor %}
-    {% if current_user.is_authenticated %}
+    {% if role == 'admin' %}
         <br>
         <a href="{{ url_for('new_product') }}">Добавить продукт</a>
     {% endif %}

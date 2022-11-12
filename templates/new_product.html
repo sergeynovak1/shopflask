@@ -7,22 +7,25 @@
         <div class="flash {{cat}}">{{msg}}
     {% endfor %}
     <h1>{{ title|upper }}</h1>
-    <form action="{{ url_for('new_product') }}" method="post">
+    <form action="{{ url }}" enctype="multipart/form-data" method="post">
     <table>
         <tr>
-            <td><input type="text" placeholder="NAME" name="name"></td>
+            <td><input type="text" placeholder="NAME" name="name" value={{ product.name }}></td>
         </tr>
         <tr>
-            <td><input type="text" placeholder="PRICE" name="price"></td>
+            <td><input type="text" placeholder="PRICE" name="price" value={{ product.price }}></td>
         </tr>
         <tr>
-            <td><input type="text" placeholder="DESCRIPTION" name="description"></td>
+            <td><input type="text" placeholder="DESCRIPTION" name="description" value={{ product.description }}></td>
         </tr>
         <tr>
-            <td><input type="text" placeholder="CATEGORY" name="category"></td>
+            <td><input type="text" placeholder="CATEGORY" name="category" value={{ product.category }}></td>
         </tr>
         <tr>
-            <td><input type="text" placeholder="QUANTITY" name="quantity"></td>
+            <td><input type="text" placeholder="QUANTITY" name="quantity" value={{ product.quantity }}></td>
+        </tr>
+         <tr>
+             <td><input type="file" name="photo" accept="static/*,image/jpeg"></td>
         </tr>
         <tr>
             <td><input type="submit"></td>
