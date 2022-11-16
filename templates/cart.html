@@ -1,49 +1,40 @@
 {% extends "base.html" %}
 
 {% block body %}
-	<div id="title">
-		<!---{% if not loggedIn %}
-			<div id="signInButton">
-				<a class="link" href="/loginForm">Sign In</a>
-			</div>
-		{% else %}
-		<div class="dropdown">
-			<button class="dropbtn">Hello, <br>{{firstName}}</button>
-			<div class="dropdown-content">
-				<a href="/account/orders">Your orders</a>
-				<a href="/account/profile">Your profile</a>
-				<hr>
-				<a href="/logout">Sign Out</a>
-			</div>
-		</div>
-		{% endif %}
-		<div id="kart">
-			<a class="link" href="/cart">
-			CART {{noOfItems}}
-			</a>
-		</div>--->
-	</div>
-	<div id="cartItems">
-		<h2>Shopping Cart</h2>
-		<div id="tableItems">
-			{% for row in products %}
-			<p>id {{row['id']}}</p>
-			<div>
-				<div id="itemName">
-					<span id="itemNameTag">{{row['name']}}</span><br>
-					In stock<br>
-					<a href="/removeFromCart?productId={{row['id']}}">Remove</a>
-				</div>
-				<div id="itemPrice">
-					${{row['price']}}
+	<link rel="stylesheet" href="/static/css/cart.css">
+	<h2>{{ title|upper }}</h2>
+
+	{% for row in products %}
+		<div class="product-inner">
+			<div class="product-wrap">
+				{% if row.image != None %}
+                	<a><img src="/static/images/{{ row.image }}" class="photo"></a>
+            	{% endif %}
+				<div class="actions">
+					<a href="/removeFromCart?productId={{row.id}}" class="nwishlist"></a>
+					<a href="/addToFav?productId={{row.id}}" class="wishlist"></a>
 				</div>
 			</div>
-			{% endfor %}
-			<hr id="seperator">
-			<div id="total">
-				<span id="subtotal">Subtotal</span> : ${{totalPrice}}
+			<div class="product-info">
+				<p class="product-title">{{ row.name|upper }}</p>
+            	<p class="product-title">Price: {{ row.price|float }}</p>
+				<form method="post" action="/addToCart?productId={{row.id}}">
+					<p class="product-title">Кол-во:
+					<input style="width: 60px; text-align: center;" type="number" id='quan' class="block1" min="1" max="20" name="quan" value={{row.quantity}}>
+					<button type="submit" id="btn" class="block1">Указать</button>
+					</p>
+				</form>
 			</div>
 		</div>
+	{% endfor %}
+	<hr id="seperator">
+	<div id="total">
+		<span id="subtotal">Subtotal</span> : ${{totalPrice}}
 	</div>
-	<a href="/makeOrder">Сделать заказ</a>
+	<a class="animated-button-a" href="/makeOrder">Сделать заказ</a>
+{% endblock %}
+
+{% block script %}
+	<script src="http://code.jquery.com/jquery-3.2.1.js"></script>
+	<script src="/static/js/cart.js"></script>
 {% endblock %}

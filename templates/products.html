@@ -1,59 +1,66 @@
 {% extends "base.html" %}
 
 {% block body %}
-    {% if current_user.is_authenticated %}
-        <a href="{{ url_for('logout') }}">Выйти</a>
-        <a href="{{ url_for('profile') }}">Профиль</a>
-    {% else %}
-        <a href="{{ url_for('register') }}">Регистрация</a>
-        <a href="{{ url_for('login') }}">Вход</a>
-    {% endif %}
-
-<br>
-    <a href="{{ url_for('cart') }}">Корзина</a>
-    <a href="{{ url_for('fav') }}">Избранное</a>
+<link rel="stylesheet" href="/static/css/products.css">
 
     <h1>{{ title|upper }}</h1>
+    <div>
+        <div class="search">
+            <form method="post" id="upload-file">
+                <select name="category" class="block1">
+                    <option disabled>Категория</option>
+                    {% for category in categories %}
+                        {% if category == p_category %}
+                            <option value={{category}} selected="selected">{{category}}</option>
+                        {% else%}
+                            <option value={{category}}>{{category}}</option>
+                        {% endif %}
+                    {% endfor %}
+                </select>
+                    <input type="text" class="block1" placeholder="search ..." name="name" value={{name}}>
+                    <button type="submit" class="block1" id="btn">Поиск</button>
+            </form>
+        </div>
+        <div class="filter">
+            <form method="post">
+                <tr>
+                    <button type="submit" class="block1">Сбросить фильтры</button>
+                </tr>
+            </form>
+        </div>
+    </div>
 
-    <form method="post">
-        <select name="category" id="cars">
-            <option disabled>Категория</option>
-            {% for category in categories %}
-                {% if category == p_category %}
-                    <option value={{category}} selected="selected">{{category}}</option>
-                {% else%}
-                    <option value={{category}}>{{category}}</option>
-                {% endif %}
-            {% endfor %}
-        </select>
-        <tr>
-            <td><input type="text" placeholder="search" name="name" value={{name}}></td>
-        </tr>
-        <tr>
-            <button type="submit">Поиск</button>
-        </tr>
-    </form>
-    <form method="post">
-        <tr>
-            <button type="submit">Сбросить фильтры</button>
-        </tr>
-    </form>
 
-
+    <div>
     {% for product in products %}
         <div style="float:left;" onclick="location.href = '{{ url_for("get_product", product_id=product.id) }}'">
-            <figure style="width:290px; background-color: #11557C;">
-                {% if product.image != None %}
-                    <p><a><img src="/static/images/{{ product.image }}" width="100%" height="auto"></a></p>
-                {% endif %}
-                <p>{{ product.name|upper }}</p>
-                <p>{{ product.price|float }}</p>
-                <p>{{ product.description|upper }}</p>
-            </figure>
+            <div class="product-inner">
+                <div class="product-wrap">
+                    {% if product.image != '' or None %}
+                        <p><a><img src="/static/images/{{ product.image }}" class="photo"></a></p>
+                    {% endif %}
+                    <div class="actions">
+                        <a href="/addToCart?productId={{product.id}}" class="add-to-cart"></a>
+                        <a href="/addToFav?productId={{product.id}}" class="wishlist"></a>
+                    </div>
+                </div>
+                <div class="product-info">
+                    <h3 class="product-title">{{ product.name|upper }}</h3>
+                    <span class="price">{{ product.price }} ₽</span>
+                </div>
+            </div>
         </div>
     {% endfor %}
+    </div>
+    <div>
     {% if role == 'admin' %}
         <br>
-        <a href="{{ url_for('new_product') }}">Добавить продукт</a>
+        <p><a href="{{ url_for('new_product') }}" class="animated-button">Добавить продукт</a></p>
     {% endif %}
+    </div>
+{% endblock %}
+
+{% block script %}
+	<script src="http://code.jquery.com/jquery-3.2.1.js"></script>
+	<script src="/static/js/products.js"></script>
 {% endblock %}

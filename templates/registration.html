@@ -1,17 +1,16 @@
 {% extends "base.html" %}
 
 {% block body %}
-    <p><a href='{{ url_for("products")}}'>Вернуться на главную страницу</a></p>
+    <link rel="stylesheet" href="static/css/reg.css">
     {{ super() }}
     {% for cat, msg in get_flashed_messages(True) %}
-    <div class="flash {{cat}}">{{msg}}
+        <div class="flash {{cat}}">{{msg}}</div>
     {% endfor %}
-    <h1>{{ title|upper }}</h1>
+    <h2>{{ title|upper }}</h2>
     <form method="post">
-        <p><label>Email: </label> <input type="text" name="email" value={{ prof.email }} /></p>
-        <p><label>Password: </label> <input type="password" name="psw" value="" /></p>
-        <p><label>Repeat Password: </label> <input type="password" name="psw2" value="" /></p>
-        <p><input type="submit" value="Регистрация" /></p>
+        <p><label>Email: </label> <input type="text" name="email" class="block1" value={{ prof.email }}></p>
+        <p><label>Password: </label> <input type="password" name="psw" class="block1" value=""></p>
+        <p><label>Repeat Password: </label> <input type="password" name="psw2" class="block1" value=""></p>
+        <p><input type="submit" class="animated-button" value="Регистрация" /></p>
     </form>
-    </div>
 {% endblock %}

@@ -4,13 +4,31 @@
 <head>
     <meta charset="UTF-8">
     <title>{{ title }}</title>
-    <link rel="stylesheet" href="css/cart.css">
+    <link rel="stylesheet" href="/static/css/base.css">
 </head>
 <body>
-    <a href='{{ url_for("products")}}'>Вернуться на главную страницу</a>
+    <header class="header">
+        <div class="header-container">
+            <a href='{{ url_for("products")}}' class="logo"><img src="/static/images/sp3.jpg" width="50%" alt="Главная страница"></a>
+            <ul class="mnu_top ">
+                <li><a href='{{ url_for("products")}}'>Главная страница</a></li>
+            {% if current_user.is_authenticated %}
+                <li><a href="{{ url_for('profile') }}">Профиль</a></li>
+                <li><a href="{{ url_for('cart') }}">Корзина</a></li>
+                <li><a href="{{ url_for('fav') }}">Избранное</a></li>
+                <li><a href="{{ url_for('logout') }}">Выйти</a></li>
+            {% else %}
+                <li><a href="{{ url_for('register') }}">Регистрация</a></li>
+                <li><a href="{{ url_for('login') }}">Вход</a></li>
+            {% endif %}
+            </ul>
+        </div>
+    </header>
 
-    {% block body %}{% endblock %}
-    {% block script %}{% endblock %}
+    <div class="content">
+        {% block body %}{% endblock %}
+        {% block script %}{% endblock %}
+    </div>
 
 </body>
 </html>

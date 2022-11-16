@@ -1,66 +1,169 @@
-#tableItems {
-	margin-left: 20px;
-	margin-right: 20px;
-	margin-top: 20px;
-	margin-bottom: 20px;
+.product-inner {
+   margin-top: 80px;
+   padding: 0 0 10px 0;
+   width: 500px;
+   height: auto;
+   background: #ff6b02;
+   text-align: center;
+   border-bottom: 2px solid #ebebec;
+   transition: .2s linear;
+   border-radius: 40px;
+   background: repeating-linear-gradient(45deg, #ffa761, #ffa761 10px, #D7DFED 10px, #D7DFED 20px);
+   transition: color .3s, background .5s;
+}
+.product-inner:hover {
+   animation: stripes .75s infinite linear;
+   background: linear-gradient(45deg, rgba(30, 255, 188, 1) 25%, rgba(255, 255, 255, 1) 25%, rgba(255, 255, 255, 1) 50%, rgba(30, 255, 188, 1) 50%, rgba(30, 255, 188, 1) 75%, rgba(255, 255, 255, 1) 75%, rgba(255, 255, 255, 1));
+   background-size: 10px 10px;
+   color: #000000;
+   border-color: #f6d500;
+}
+.product-wrap {
+   padding: 10px;
+   height: 300px;
+   text-align: center;
+   position: relative;
+   overflow: hidden;
+   margin-bottom: 10px;
+}
+.product-wrap img {
+   display: block;
+   width: 70%;
+}
+.actions {
+   position: absolute;
+   left: 0;
+   bottom: -20%;
+   width: 100%;
+   background: rgba(59, 62, 67, 0.75);
+   transition: .3s linear;
+}
+.product-inner:hover .actions {
+   bottom: 0;
+}
+.actions a {
+   text-decoration: none;
+   float: left;
+   width: 50%;
+   color: white;
+   padding: 10px 0;
+   transition: .2s linear;
+}
+.actions a:hover {
+   background: rgba(59, 62, 67, 0.85);
+}
+.actions a:before {
+   font-family: "FontAwesome";
+}
+.add-to-cart:before {
+   content: "\2714";
+}
+.wishlist:before {
+   content: "\2764";
+}
+.nwishlist:before {
+   content: " \1F5D1";
+}
+.product-info-a {
+   font-size: 45px;
+   position: relative;
+   margin-bottom: -40px;
+   font-family: fantasy;
+}
+.product-info {
+   position: relative;
+   font-family: fantasy;
+}
+.product-title {
+   margin: 0 20px 0 20px;
+   word-break:break-all;
+}
+.product-title-a {
+   margin: 0 0 20px 0;
+   word-break:break-all;
+}
+.product-title a {
+   text-decoration: none;
+   color: #1e1e1e;
+   font-weight: 400;
+   font-size: 16px;
+   max-width: 100px;
+}
+.price {
+   font-family: fantasy;
+   color: rgba(0, 0, 0, 0.85);
 }
 
-#itemImage {
-	margin-left: 5px;
-	margin-right: 5px;
-	margin-top: 5px;
-	margin-bottom: 5px;
-	height: 100px;
-	float: left;
+.photo {
+  width: 350px;
+  height: 250px;
+  display: block;
+  margin: auto;
+  padding: 10px;
 }
-
-#itemName {
-	margin-left: 5px;
-	margin-right: 5px;
-	margin-top: 5px;
-	margin-bottom: 5px;
-	height: 100px;
-	width: 200px;
-	float: left;
+.animated-button {
+  font-size: 17.5px;
+  text-decoration: none;
+  display: inline-block;
+  margin: 10px 20px;
+  padding: 15px 30px;
+  overflow: hidden;
+  border: 2px solid;
+  border-bottom-width: 4px;
+  font-family: 'Montserrat', sans-serif;
+  text-transform: uppercase;
+  font-weight: bold;
+  letter-spacing: 2px;
+  color: rgb(255, 124, 30);
+  background: none;
+  transition: color .3s, background .5s;
 }
-
-#titleName {
-	width: 200px;
-	float: left;
+.animated-button-a {
+  font-size: 34px;
+  text-decoration: none;
+  display: inline-block;
+  margin: 10px 20px;
+  padding: 15px 30px;
+  overflow: hidden;
+  border: 2px solid;
+  border-bottom-width: 4px;
+  font-family: 'Montserrat', sans-serif;
+  text-transform: uppercase;
+  font-weight: bold;
+  letter-spacing: 2px;
+  color: rgb(255, 124, 30);
+  background: none;
+  transition: color .3s, background .5s;
 }
-
-#titlePrice {
-	float: left;
+.block1 {
+  max-height: 90%;
+  top: 50%;
+  background: none;
+  outline: none;
+  font-size: 35px;
+  font-family: fantasy;
+  line-height: 40px;
+  height: 50px;
+  margin: 3px;
+  color: rgb(10, 10, 11);
 }
-
-#itemPrice {
-	margin-left: 5px;
-	margin-right: 5px;
-	margin-top: 5px;
-	margin-bottom: 5px;
-	height: 100px;
-	display: inline-block;
+.animated-button:hover {
+  animation: stripes .75s infinite linear;
+  background: linear-gradient(45deg, rgba(30, 255, 188, 1) 25%,
+                                     rgba(255, 255, 255, 1) 25%,
+                                     rgba(255, 255, 255, 1) 50%,
+                                     rgba(30, 255, 188, 1) 50%,
+                                     rgba(30, 255, 188, 1) 75%,
+                                     rgba(255, 255, 255, 1) 75%,
+                                     rgba(255, 255, 255, 1));
+  background-size: 10px 10px;
+  color: #FF50E5;
 }
-
-#image {
-	height: 100px;
-	width: 80px;
-}
-
-#seperator {
-	margin: 0px;
-	max-width: 400px;
-}
-
-#total {
-	padding-left: 280px;
-}
-
-#itemNameTag {
-	font-weight: bold;
-}
-
-#subtotal {
-	font-weight: bold;
-	font-size: 20px;
+@keyframes stripes {
+  0% {
+    background-position: 0 0;
+  }
+  100% {
+    background-position: 50px 0;
+  }
 }

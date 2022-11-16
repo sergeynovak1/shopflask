@@ -1,0 +1,48 @@
+
+
+.block1 {
+  max-height: 90%;
+  top: 50%;
+  background: none;
+  outline: none;
+  font-size: 35px;
+  font-family: fantasy;
+  line-height: 40px;
+  height: 50px;
+  margin: 3px;
+  color: rgb(10, 10, 11);
+}
+
+::placeholder {
+  color: rgb(10, 10, 11);
+  font-family: fantasy;
+}
+
+.animated-button {
+      display: block;
+      margin: 10px 20px;
+      overflow: hidden;
+      font-family: fantasy;
+
+      text-align: center;
+      text-decoration: none;
+      border: 2px solid;
+      width: 400px;
+      font-size: 36px;
+      border-bottom-width: 4px;
+      color: rgb(10, 10, 11);
+      background: none;
+      transition: color .3s, background .5s;
+}
+.animated-button:hover {
+  animation: stripes .75s infinite linear;
+  background: linear-gradient(45deg, rgba(30, 255, 188, 1) 25%,
+                                     rgba(255, 255, 255, 1) 25%,
+                                     rgba(255, 255, 255, 1) 50%,
+                                     rgba(30, 255, 188, 1) 50%,
+                                     rgba(30, 255, 188, 1) 75%,
+                                     rgba(255, 255, 255, 1) 75%,
+                                     rgba(255, 255, 255, 1));
+  background-size: 10px 10px;
+  color: #FF50E5;
+}

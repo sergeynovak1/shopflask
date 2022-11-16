@@ -1,36 +1,42 @@
 {% extends "base.html" %}
 
 {% block body %}
-    {% if current_user.is_authenticated %}
-        <a href="{{ url_for('logout') }}">Выйти</a>
-    {% endif %}
 
-    <h1>{{ title|upper }}</h1>
+    <link rel="stylesheet" href="static/css/profile.css">
+
+    <h2>{{ title|upper }}</h2>
+    <br>
     <div>
-        <figure style="width:263px;">
+        <figure>
             <h3>Email: {{ prof.email }}</h3>
-            <a href="{{ url_for('redirectProfile') }}">Редактировать профиль</a>
-            <p><a href="{{ url_for('removeProfile') }}">Удалить профиль</a></p>
-            <br>
-            <br>
+            <h3>Role: {{ prof.role }}</h3>
+            <div class="bot">
+                <div>
+                <a href="{{ url_for('redirectProfile') }}" class="animated-button">Редактировать профиль</a>
+                </div>
+                <div>
+                <p><a href="{{ url_for('removeProfile') }}" class="animated-button">Удалить профиль</a></p>
+                </div>
+            </div>
             <br>
             <br>
             <h2>Заказы:</h2>
             <hr>
             {% for order in orders %}
+                <div class="catalog_index">
                 {% for product in order %}
                 {% if product != [] %}
-                    <div style="float:left;" onclick="location.href = '{{ url_for("get_product", product_id=product.id) }}'">
-                        <figure style="width:263px;">
+                    <div class = "info-a" onclick="location.href = '{{ url_for("get_product", product_id=product.id) }}'" >
+                        <div class="info">
                             <p>{{ product.name|upper }}</p>
                             <p>{{ product.price|float }}</p>
-                            <p>{{ product.description|upper }}</p>
-                        </figure>
+                        </div>
                     </div>
                 {% else %}
                     <p>Товар уже не актуален</p>
                 {% endif %}
                 {% endfor %}
+                </div>
                 <hr>
             {% endfor %}
         </figure>

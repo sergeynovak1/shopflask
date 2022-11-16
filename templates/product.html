@@ -1,31 +1,30 @@
 {% extends "base.html" %}
 
 {% block body %}
-
-    <h1>{{ title }}</h1>
-    <div>
-        <figure style="width:263px;">
+    <link rel="stylesheet" href="/static/css/cart.css">
+    <div class="product-inner">
+        <div class="product-info-a">
+            <h2 class="product-title-a">{{ product.name|upper }}</h2>
+        </div>
+        <div class="product-wrap">
             {% if product.image != None %}
-                <p><a><img src="/static/images/{{ product.image }}"
-                                                 width="100%" height="auto"></a></p>
+                <a><img src="/static/images/{{ product.image }}" class="photo"></a>
             {% endif %}
-            <p>{{ product.image|upper }}</p>
-            <p>{{ product.name|upper }}</p>
-            <p>Price: {{ product.price|float }}</p>
-            <p>Description: {{ product.description|upper }}</p>
-            <p>Category: {{ product.category|upper }}</p>
-        </figure>
-        {% if role != None %}
-            <a href="/addToCart?productId={{product.id}}">Купить</a>
-            {% if role == 'admin' %}
-                <a href="/removeProduct?productId={{product.id}}">Удалить</a>
-                <a href="/redirectProduct?productId={{product.id}}">Редактировать</a>
+            <div class="actions">
+            {% if role != None %}
+                <a href="/addToCart?productId={{product.id}}" class="add-to-cart"></a>
+                <a href="/addToFav?productId={{product.id}}" class="wishlist"></a>
             {% endif %}
-            {% if not in_fav %}
-                <a href="/addToFav?productId={{product.id}}">Добавить в избранное</a>
-            {% else %}
-                <p>Товар уже в избранном</p>
-            {% endif %}
-        {% endif %}
+            </div>
+        </div>
+        <div class="product-info">
+            <p class="product-title">Price: {{ product.price|float }}</p>
+            <p class="product-title">Category: {{ product.category|upper }}</p>
+            <p style="font-size: 25px" class="product-title">Description: {{ product.description }}</p>
+        </div>
     </div>
+    {% if role == 'admin' %}
+        <a href="/removeProduct?productId={{product.id}}" class="animated-button">Удалить</a>
+        <a href="/redirectProduct?productId={{product.id}}" class="animated-button">Редактировать</a>
+    {% endif %}
 {% endblock %}

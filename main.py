@@ -1,2 +1,2 @@
-orders_list = ['ppp']
-print(tuple(orders_list))
+orders_list = []
+print(len(orders_list))
