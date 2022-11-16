@@ -2,6 +2,12 @@
 
 {% block body %}
     <link rel="stylesheet" href="/static/css/cart.css">
+
+    {{ super() }}
+    {% for cat, msg in get_flashed_messages(True) %}
+        <div class="{{cat}}">{{msg}}</div>
+    {% endfor %}
+
     <div class="product-inner">
         <div class="product-info-a">
             <h2 class="product-title-a">{{ product.name|upper }}</h2>

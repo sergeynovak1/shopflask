@@ -5,6 +5,12 @@
     <link rel="stylesheet" href="static/css/profile.css">
 
     <h2>{{ title|upper }}</h2>
+
+    {{ super() }}
+    {% for cat, msg in get_flashed_messages(True) %}
+        <div class="{{cat}}">{{msg}}</div>
+    {% endfor %}
+
     <br>
     <div>
         <figure>

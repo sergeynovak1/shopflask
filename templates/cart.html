@@ -4,6 +4,11 @@
 	<link rel="stylesheet" href="/static/css/cart.css">
 	<h2>{{ title|upper }}</h2>
 
+	{{ super() }}
+    {% for cat, msg in get_flashed_messages(True) %}
+        <div class="{{cat}}">{{msg}}</div>
+    {% endfor %}
+
 	{% for row in products %}
 		<div class="product-inner">
 			<div class="product-wrap">

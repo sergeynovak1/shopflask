@@ -2,10 +2,12 @@
 
 {% block body %}
     <link rel="stylesheet" href="static/css/reg.css">
+
     {{ super() }}
     {% for cat, msg in get_flashed_messages(True) %}
-        <div class="flash {{cat}}">{{msg}}
+        <div class="{{cat}}">{{msg}}</div>
     {% endfor %}
+
     <h2>{{ title|upper }}</h2>
     <form action="{{ url }}" enctype="multipart/form-data" method="post">
     <table>

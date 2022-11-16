@@ -46,3 +46,10 @@
   background-size: 10px 10px;
   color: #FF50E5;
 }
+.success {
+  color: #3A7734;
+}
+
+.error {
+  color: #ff0000;
+}

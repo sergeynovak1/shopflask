@@ -76,3 +76,11 @@ header .logo {
   font-size: 50px;
   font-family: fantasy;
 }
+
+.success {
+  color: #3A7734;
+}
+
+.error {
+  color: #ff0000;
+}

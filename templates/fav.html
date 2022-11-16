@@ -3,6 +3,12 @@
 {% block body %}
 	<link rel="stylesheet" href="static/css/products.css">
 	<h2>{{ title|upper }}</h2>
+
+    {{ super() }}
+    {% for cat, msg in get_flashed_messages(True) %}
+        <div class="{{cat}}">{{msg}}</div>
+    {% endfor %}
+
 	{% for product in products %}
         <div style="float:left;" onclick="location.href = '{{ url_for("get_product", product_id=product.id) }}'">
             <div class="product-inner">

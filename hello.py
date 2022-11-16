@@ -92,7 +92,7 @@ def get_product(product_id):
                 f"select id, name, price, description, category, image from ad where id='{product_id}'")
             return render_template("product.html", title=product['name'], product=product, role=None)
         except:
-            return render_template("error.html", error="Такого фильма не существует в системе")
+            return render_template("error.html", error="Такого товара не существует")
 
 
 @app.route("/register", methods=["POST", "GET"])
@@ -159,6 +159,7 @@ def addToCart():
             db.insert(f"INSERT INTO kart (userid, productid, quantity) VALUES ({userId}, {productId}, 1)")
             msg = "Error occured"
             print(444)
+    flash("Товар добавлен в корзину")
     return redirect(url_for('cart'))
 
 
@@ -187,9 +188,9 @@ def removeFromCart():
     userId = session['_user_id']
     try:
         db.insert(f"DELETE FROM kart WHERE userId = {userId} AND productId = {productId}")
-        msg = "removed successfully"
+        flash("Товар удален из корзины")
     except:
-        msg = "Error occured"
+        flash("Ошибка", 'error')
     return redirect(url_for('cart'))
 
 
@@ -202,11 +203,11 @@ def addToFav():
     try:
         if db.execute_list(f"SELECT * FROM fav WHERE productid = {productId} and userid = {userId}") == []:
             db.insert(f"INSERT INTO fav (userId, productId) VALUES ({userId}, {productId})")
-            msg = "Added successfully"
+            flash("Товар добавлен в избранное")
         else:
-            msg = "Error occured"
+            flash("Товар уже в избранном")
     except:
-        msg = "Error occured"
+        flash("Ошибка авторизации", 'error')
     return redirect(url_for('products'))
 
 
@@ -227,9 +228,9 @@ def removeFromFav():
     userId = session['_user_id']
     try:
         db.insert(f"DELETE FROM fav WHERE userid = {userId} AND productid = {productId}")
-        msg = "removed successfully"
+        flash("Товар удален из корзины")
     except:
-        msg = "Error occured"
+        flash("Ошибка", 'error')
     return redirect(url_for('fav'))
 
 
@@ -248,7 +249,10 @@ def new_product():
         quantity = request.form['quantity']
         if len(name) > 3 and int(price) >= 0 and len(description) > 4:
             db.insert(f"INSERT INTO ad (id, name, price, description, quantity, category, image) VALUES(default, '{name}', {price}, '{description}', {quantity}, '{category}', '{filename}')")
+            flash("Товар добавлен")
             return redirect(url_for('products'))
+        else:
+            flash("Неверно заполнены поля", "error")
     return render_template("new_product.html", title="Новый продукт", product=product)
 
 
@@ -258,6 +262,7 @@ def removeProduct():
     db.insert(f"DELETE FROM fav WHERE productid = {productId}")
     db.insert(f"DELETE FROM kart WHERE productid = {productId}")
     db.insert(f"DELETE FROM ad WHERE id = {productId}")
+    flash("Товар удален")
     return redirect(url_for('products'))
 
 
@@ -280,7 +285,10 @@ def redirectProduct():
             else:
                 db.insert(
                     f"UPDATE ad SET name='{name}', price={price}, description='{description}', category='{category}', quantity={quantity}, image='{filename}' WHERE id = '{session['product_id']}'")
+            flash("Товар изменен")
             return redirect(url_for('products'))
+        else:
+            flash("Неверно заполнены поля", "error")
     return render_template("new_product.html", title="Редактировать товар", product=product, url=url_for('redirectProduct'))
 
 
@@ -290,6 +298,9 @@ def makeOrder():
         db.insert(f"INSERT INTO orders (userid, productid) VALUES({session['_user_id']}, '{set(session['products'])}')")
         db.insert(f"DELETE FROM kart WHERE userid = {session['_user_id']}")
         session['products'] = []
+        flash("Закан сделан")
+    else:
+        flash("Пустой заказ", 'error')
     return redirect(url_for('cart'))
 
 
@@ -325,6 +336,7 @@ def redirectProfile():
             else:
                 hash = generate_password_hash(request.form['psw'])
                 db.insert(f"UPDATE users SET email='{request.form['email']}', password='{hash}' WHERE id = '{session['_user_id']}'")
+            flash("Профиль изменен")
             return redirect(url_for('profile'))
         else:
             flash("Неверно заполнены поля", "error")
@@ -339,6 +351,7 @@ def removeProfile():
     db.insert(f"DELETE FROM kart WHERE userid = {userId}")
     db.insert(f"DELETE FROM orders WHERE userid = {userId}")
     db.insert(f"DELETE FROM users WHERE id = {userId}")
+    flash("Товар удален")
     return redirect(url_for('login'))
 
 

@@ -4,6 +4,7 @@
 <link rel="stylesheet" href="/static/css/products.css">
 
     <h1>{{ title|upper }}</h1>
+
     <div>
         <div class="search">
             <form method="post" id="upload-file">
@@ -30,6 +31,11 @@
         </div>
     </div>
 
+    {{ super() }}
+    {% for cat, msg in get_flashed_messages(True) %}
+        <div class="{{cat}}">{{msg}}</div>
+        <br>
+    {% endfor %}
 
     <div>
     {% for product in products %}

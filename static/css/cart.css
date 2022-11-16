@@ -167,3 +167,10 @@
     background-position: 50px 0;
   }
 }
+.success {
+  color: #3A7734;
+}
+
+.error {
+  color: #ff0000;
+}
